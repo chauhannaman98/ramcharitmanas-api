@@ -12,6 +12,7 @@ fastapi = "^0.110.0"
 sqlalchemy = "^2.0.27"
 python-dotenv = "^1.0.1"
 psycopg2 = "^2.9.9"
+passlib = "^1.7.4"
 
 
 [build-system]
