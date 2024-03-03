@@ -4,7 +4,7 @@ ENV POETRY_VIRTUALENVS_CREATE=false\
     POETRY_VIRTUALENVS_IN_PROJECT=false\
     POETRY_NO_INTERACTION=1
 
-WORKDIR /api
+WORKDIR /app
 
 COPY ./poetry.lock ./pyproject.toml ./
 
