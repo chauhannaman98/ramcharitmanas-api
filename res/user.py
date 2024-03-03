@@ -1,4 +1,3 @@
-import email
 from schemas.user_schema import UserInputModel, UserOutputModel
 import datetime
 from sqlalchemy.orm import Session
