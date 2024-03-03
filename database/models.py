@@ -1,5 +1,5 @@
 from database.db import Base
-from sqlalchemy import Column
+from sqlalchemy import Column, UnicodeText
 from sqlalchemy.sql.sqltypes import Integer, TIMESTAMP, String
 
 
@@ -13,3 +13,17 @@ class DBUser(Base):
     first_name = Column(String(255))
     last_name = Column(String(255))
     password = Column(String, nullable=False)
+
+
+class ManasChapter(Base):
+    __tablename__ = 'manas_chapter'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(UnicodeText)
+    name_transliterated = Column(UnicodeText)
+    name_translated = Column(UnicodeText)
+    # verses_count = Column(Integer)
+    chapter_number = Column(Integer)
+    name_meaning = Column(UnicodeText)
+    chapter_summary = Column(UnicodeText)
+    chapter_summary_hindi = Column(UnicodeText)
