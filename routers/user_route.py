@@ -3,7 +3,7 @@ from schemas import UserInputModel, UserOutputModel, UserUpdateModel
 from sqlalchemy.orm import Session
 from database.db import get_db
 
-from res.user import create_user, update_user
+from res.user import create_user, update_user, delete_user
 
 
 router = APIRouter(
@@ -30,3 +30,12 @@ async def create(request: UserInputModel, db: Session = Depends(get_db)):
 )
 async def update(request: UserUpdateModel, db: Session = Depends(get_db)):
     return update_user(db, request)
+
+
+# delete user details
+@router.delete(
+    '/delete/{username}',
+    status_code=status.HTTP_200_OK
+)
+async def delete(username: str, db: Session = Depends(get_db)):
+    return delete_user(db, username)

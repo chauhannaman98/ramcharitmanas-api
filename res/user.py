@@ -56,3 +56,18 @@ def update_user(db: Session, request: UserUpdateModel) -> UserOutputModel:
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Username {request.username} is not a valid user"
         )
+
+
+def delete_user(db: Session, username: str):
+    db_user = db.query(DBUser).filter(DBUser.username == username).first()
+
+    if db_user:
+        db.delete(db_user)
+        db.commit()
+
+        return {'message': 'User deleted successfully'}
+    
+    raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Username {username} is not a valid user"
+        )
