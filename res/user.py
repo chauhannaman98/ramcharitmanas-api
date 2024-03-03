@@ -1,4 +1,4 @@
-from schemas.user_schema import UserInputModel, UserOutputModel
+from schemas.user_schema import UserInputModel, UserOutputModel, UserUpdateModel
 import datetime
 from sqlalchemy.orm import Session
 from database.models import DBUser
@@ -30,3 +30,29 @@ def create_user(db: Session, request: UserInputModel) -> UserOutputModel:
     db.refresh(new_user)
 
     return new_user
+
+
+def update_user(db: Session, request: UserUpdateModel) -> UserOutputModel:
+    db_user = db.query(DBUser).filter(DBUser.username == request.username).first()
+
+    if db_user:
+        if request.email:
+            db_user.email = request.email
+        if request.password:
+            db_user.password = request.password
+        if request.first_name:
+            db_user.first_name = request.first_name
+        if request.last_name:
+            db_user.last_name = request.last_name
+        if request.password:
+            db_user.password = Hash.bcrypt(request.password)
+
+        db.commit()
+        db.refresh(db_user)
+
+        return db_user
+    
+    raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Username {request.username} is not a valid user"
+        )

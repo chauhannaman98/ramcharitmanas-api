@@ -22,3 +22,11 @@ class UserOutputModel(BaseModel):
     username: str
     first_name: str
     last_name: str
+
+
+class UserUpdateModel(BaseModel):
+    username: str
+    password: Optional[str] = None
+    email: Optional[str] = None
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
