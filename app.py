@@ -12,7 +12,15 @@ app.include_router(user_route.router)
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World!"}
+    return {
+        "message": "Jai Shree Ram!",
+        "enpoints-available": {
+            'chapter': [
+                '/chapters',
+                '/chapters/{chapter_number}'
+            ]
+        }
+    }
 
 
 # create all tables
