@@ -1,6 +1,6 @@
-from sqlalchemy.orm import Session
-from schemas import ChapterModel
-from database.models import ManasChapter
+from sqlalchemy.orm import Session, joinedload
+from schemas import ChapterModel, VerseModel
+from database.models import ManasChapter, ManasTranslation, ManasVerse
 from fastapi import HTTPException, status
 from typing import List
 
@@ -26,3 +26,16 @@ def get_chapter(db: Session, chapter_number: int) -> ChapterModel:
         )
     
     return chapter
+
+
+# method returns a list of verses in a chapter
+def get_all_verses(db: Session, chapter_number: int) -> List[VerseModel]:
+    verses = db.query(ManasVerse).filter(
+        ManasVerse.chapter_number == chapter_number
+    ).order_by(
+        ManasVerse.verse_number.asc()
+    ).options(
+        joinedload(ManasVerse.translations)
+    ).all()
+
+    return verses

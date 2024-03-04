@@ -11,3 +11,21 @@ class ChapterModel(BaseModel):
     name_meaning: str
     chapter_summary: str
     chapter_summary_hindi: str
+
+
+class VerseTranslationModel(BaseModel):
+    id: int
+    language: str
+    translation: str
+
+
+class VerseModel(BaseModel):
+    id: int
+    verse_number: int
+    chapter_number: int
+    verse_type: str
+    verse_text: str
+    transliteration : str
+    translations: List[VerseTranslationModel]
+    class Config():
+        from_attributes = True
