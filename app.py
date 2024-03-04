@@ -17,7 +17,9 @@ async def root():
         "enpoints-available": {
             'chapter': [
                 '/chapters',
-                '/chapters/{chapter_number}'
+                '/chapters/{chapter_number}',
+                '/chapters/{chapter_number}/verses',
+                '/chapters/{chapter_number}/verses/{verse_number}'
             ]
         }
     }
