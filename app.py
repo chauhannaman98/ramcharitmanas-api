@@ -7,7 +7,7 @@ from database.db import engine
 
 app = FastAPI()
 app.include_router(chapter_route.router)
-app.include_router(user_route.router)
+# app.include_router(user_route.router)
 
 
 @app.get("/")
