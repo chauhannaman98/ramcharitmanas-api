@@ -19,10 +19,10 @@ class DBUser(Base):
 class ManasTranslation(Base):
     __tablename__ = 'manas_translations'
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    verse_id = Column(Integer, ForeignKey("manas_verses.id"))
-    translation_en = Column(UnicodeText)
-    translation_hi = Column(UnicodeText)
+    id = Column(Integer, primary_key=True, autoincrement=True,)
+    verse_id = Column(Integer, ForeignKey('manas_verses.id'))
+    language = Column(String(255))
+    translation = Column(UnicodeText)
 
 
 class ManasChapter(Base):
@@ -48,4 +48,6 @@ class ManasVerse(Base):
     verse_type = Column(UnicodeText)
     verse_text = Column(UnicodeText)
     transliteration = Column(UnicodeText)
-    translations = relationship(ManasTranslation, backref='manas_verses', lazy="joined")
+
+    # relationships
+    translations = relationship(ManasTranslation, backref='manas_verses', lazy='joined')
