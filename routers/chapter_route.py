@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, status
 from requests import get
-from schemas import ChapterModel, AllChapterOutputModel
+from schemas import ChapterModel
 from database.db import get_db
 from sqlalchemy.orm import Session
 from res import chapter

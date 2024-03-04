@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from schemas import ChapterModel, AllChapterOutputModel
+from schemas import ChapterModel
 from database.models import ManasChapter
 from fastapi import HTTPException, status
 from typing import List

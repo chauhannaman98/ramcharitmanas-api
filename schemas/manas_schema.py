@@ -11,7 +11,3 @@ class ChapterModel(BaseModel):
     name_meaning: str
     chapter_summary: str
     chapter_summary_hindi: str
-
-
-class AllChapterOutputModel(BaseModel):
-    chapters: List[ChapterModel]
