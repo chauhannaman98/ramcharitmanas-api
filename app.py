@@ -14,6 +14,8 @@ app.include_router(chapter_route.router)
 async def root():
     return {
         "message": "Jai Shree Ram!",
+        "docs": "/docs",
+        'chapters_available': '1',
         "enpoints-available": {
             'chapter': [
                 '/chapters',
