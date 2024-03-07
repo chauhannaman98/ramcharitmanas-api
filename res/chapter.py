@@ -38,7 +38,13 @@ def get_all_verses(db: Session, chapter_number: int) -> List[VerseModel]:
         joinedload(ManasVerse.translations)
     ).all()
 
-    return verses
+    if verses:
+        return verses
+    
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND,
+        detail=f"No data found for chapter {str(chapter_number)}."
+    )
 
 
 # returns the particular verse from the chapter
@@ -50,4 +56,10 @@ def get_verse_from_chapter(db: Session, chapter_num: int, verse_num: int) -> Ver
         joinedload(ManasVerse.translations)
     ).first()
 
-    return verse
+    if verse:
+        return verse
+    
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND,
+        detail=f"No verse number {verse_num} found in chapter {chapter_num}"
+    )
