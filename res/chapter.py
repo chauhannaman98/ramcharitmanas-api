@@ -1,6 +1,6 @@
-from sqlalchemy.orm import Session
-from schemas import ChapterModel, AllChapterOutputModel
-from database.models import ManasChapter
+from sqlalchemy.orm import Session, joinedload
+from schemas import ChapterModel, VerseModel
+from database.models import ManasChapter, ManasVerse
 from fastapi import HTTPException, status
 from typing import List
 
@@ -26,3 +26,40 @@ def get_chapter(db: Session, chapter_number: int) -> ChapterModel:
         )
     
     return chapter
+
+
+# method returns a list of verses in a chapter
+def get_all_verses(db: Session, chapter_number: int) -> List[VerseModel]:
+    verses = db.query(ManasVerse).filter(
+        ManasVerse.chapter_number == chapter_number
+    ).order_by(
+        ManasVerse.verse_number.asc()
+    ).options(
+        joinedload(ManasVerse.translations)
+    ).all()
+
+    if verses:
+        return verses
+    
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND,
+        detail=f"No data found for chapter {str(chapter_number)}."
+    )
+
+
+# returns the particular verse from the chapter
+def get_verse_from_chapter(db: Session, chapter_num: int, verse_num: int) -> VerseModel:
+    verse = db.query(ManasVerse).filter(
+        ManasVerse.chapter_number == chapter_num,
+        ManasVerse.verse_number == verse_num
+    ).options(
+        joinedload(ManasVerse.translations)
+    ).first()
+
+    if verse:
+        return verse
+    
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND,
+        detail=f"No verse number {verse_num} found in chapter {chapter_num}"
+    )
