@@ -15,7 +15,7 @@ async def root():
     return {
         "message": "Jai Shree Ram!",
         "docs": "/docs",
-        'chapters_available': '1',
+        'chapters_available': '1, 2',
         "enpoints-available": {
             'chapter': [
                 '/chapters',
