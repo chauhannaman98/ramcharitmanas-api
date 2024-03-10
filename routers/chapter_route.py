@@ -44,7 +44,7 @@ async def get_all_verses_by_chapter(chapter_num: int, db: Session = Depends(get_
 
 
 @router.get(
-    '/{chapter_num}/verses/{verse_number}',
+    '/{chapter_num}/verses/{verse_num}',
     status_code=status.HTTP_200_OK,
     response_model=VerseModel,
     tags=['verses']
