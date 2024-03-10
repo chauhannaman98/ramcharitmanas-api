@@ -161,4 +161,4 @@ cython_debug/
 .vercel
 
 .vscode/
-queries/
+data/
