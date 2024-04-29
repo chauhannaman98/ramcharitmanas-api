@@ -36,7 +36,7 @@ async def get_chapter(chapter_num: int, db: Session = Depends(get_db)):
 @router.get(
     '/{chapter_num}/verses',
     status_code=status.HTTP_200_OK,
-    response_model=List[VerseModel],
+    # response_model=List[VerseModel],
     tags=['verses']
 )
 async def get_all_verses_by_chapter(chapter_num: int, db: Session = Depends(get_db)):
