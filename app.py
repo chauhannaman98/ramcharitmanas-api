@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import user_route, chapter_route
+from routers import chapter_route
 from database import models
 from database.db import engine
 
