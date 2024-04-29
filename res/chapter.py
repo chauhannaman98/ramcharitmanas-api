@@ -7,12 +7,16 @@ import json
 import ast
 from res.row2dict import row2dict
 import redis
+from dotenv import load_dotenv
+import os
 
+
+load_dotenv()
 
 rd = redis.Redis(
-    host="redis-13321.c212.ap-south-1-1.ec2.redns.redis-cloud.com",
+    host=os.getenv('REDIS_HOST'),
     port=13321,
-    password='CyiJc7g00862vnSfcnz3qBHtctnzREF9'
+    password=os.getenv('REDIS_PASSWORD')
     )
 
 # method returns a list of all the chapters
@@ -59,7 +63,7 @@ def get_all_verses(db: Session, chapter_number: int):
                 parsed_list.append(row2dict(verse))
 
             rd.set(redis_key, str(parsed_list))
-            rd.expire(redis_key, 60)
+            rd.expire(redis_key, os.getenv('REDIS_CHAPTER_CACHE_TIMEOUT'))
             return parsed_list
         
         raise HTTPException(
