@@ -32,16 +32,12 @@ def get_chapter(db: Session, chapter_number: int) -> ChapterModel:
 def get_all_verses(db: Session, chapter_number: int):
     verses = db.query(ManasVerse).filter(
         ManasVerse.chapter_number == chapter_number
-    )
-    # .options(
-    #     joinedload(ManasVerse.translations)
-    # ).all()
+    ).order_by(
+        ManasVerse.verse_number.asc()
+    ).all()
 
     if verses:
-        response = {
-            "data": verses, 
-        }
-        return response
+        return verses
     
     raise HTTPException(
         status_code=status.HTTP_404_NOT_FOUND,
@@ -54,8 +50,6 @@ def get_verse_from_chapter(db: Session, chapter_num: int, verse_num: int) -> Ver
     verse = db.query(ManasVerse).filter(
         ManasVerse.chapter_number == chapter_num,
         ManasVerse.verse_number == verse_num
-    ).options(
-        joinedload(ManasVerse.translations)
     ).first()
 
     if verse:

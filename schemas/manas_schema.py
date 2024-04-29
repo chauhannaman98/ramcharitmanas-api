@@ -19,6 +19,10 @@ class VerseTranslationModel(BaseModel):
     translation: str
 
 
+class VerseTranslationOutputModel(BaseModel):
+    data: List[VerseTranslationModel]
+
+
 class VerseModel(BaseModel):
     id: int
     verse_number: int

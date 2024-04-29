@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import chapter_route
+from routers import chapter_route, translations_route
 from database import models
 from database.db import engine
 
@@ -7,6 +7,7 @@ from database.db import engine
 
 app = FastAPI()
 app.include_router(chapter_route.router)
+app.include_router(translations_route.router)
 # app.include_router(user_route.router)
 
 
