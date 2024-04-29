@@ -8,7 +8,7 @@ class ManasTranslation(Base):
     __tablename__ = 'manas_translations'
 
     id = Column(Integer, primary_key=True, autoincrement=True,)
-    verse_id = Column(Integer, ForeignKey('manas_verses.id'))
+    verse_id = Column(Integer, ForeignKey("manas_verses.id"))
     language = Column(String(255))
     translation = Column(UnicodeText)
 
@@ -38,4 +38,4 @@ class ManasVerse(Base):
     transliteration = Column(UnicodeText)
 
     # relationships
-    translations = relationship(ManasTranslation, backref='manas_verses', lazy='joined')
+    # translations = relationship(ManasTranslation, backref='manas_verses', lazy='joined')

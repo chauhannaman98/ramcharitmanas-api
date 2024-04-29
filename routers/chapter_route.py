@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, status
 from requests import get
-from schemas import ChapterModel, VerseModel
+from schemas import ChapterModel, VerseModel, VerseOutputModel
 from database.db import get_db
 from sqlalchemy.orm import Session
 from res import chapter
@@ -36,7 +36,7 @@ async def get_chapter(chapter_num: int, db: Session = Depends(get_db)):
 @router.get(
     '/{chapter_num}/verses',
     status_code=status.HTTP_200_OK,
-    response_model=List[VerseModel],
+    response_model=VerseOutputModel,
     tags=['verses']
 )
 async def get_all_verses_by_chapter(chapter_num: int, db: Session = Depends(get_db)):

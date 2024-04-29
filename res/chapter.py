@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session, joinedload
 from schemas import ChapterModel, VerseModel
 from database.models import ManasChapter, ManasVerse
-from fastapi import HTTPException, status
+from fastapi import HTTPException, status, Response
 from typing import List
 
 
@@ -29,17 +29,19 @@ def get_chapter(db: Session, chapter_number: int) -> ChapterModel:
 
 
 # method returns a list of verses in a chapter
-def get_all_verses(db: Session, chapter_number: int) -> List[VerseModel]:
+def get_all_verses(db: Session, chapter_number: int):
     verses = db.query(ManasVerse).filter(
         ManasVerse.chapter_number == chapter_number
-    ).order_by(
-        ManasVerse.verse_number.asc()
-    ).options(
-        joinedload(ManasVerse.translations)
-    ).all()
+    )
+    # .options(
+    #     joinedload(ManasVerse.translations)
+    # ).all()
 
     if verses:
-        return verses
+        response = {
+            "data": verses, 
+        }
+        return response
     
     raise HTTPException(
         status_code=status.HTTP_404_NOT_FOUND,
