@@ -1,0 +1,5 @@
+from mock.mock_root_response import root_response
+from mock.mock_chapter_response import chapter_response
+from mock.mock_chapter1_response import chapter_num_response
+from mock.mock_chapter1_verses_reponse import all_verses
+from mock.mock_chapter1_verse1_response import verse
