@@ -15,9 +15,15 @@ load_dotenv()
 
 rd = redis.Redis(
     host=os.getenv('REDIS_HOST'),
-    port=13321,
+    port=os.getenv('REDIS_PORT'),
     password=os.getenv('REDIS_PASSWORD')
     )
+
+try:
+    rd.ping()  # Test connection
+    print("Connected to Redis!")
+except redis.ConnectionError as e:
+    print(f"Failed to connect to Redis: {e}")
 
 # method returns a list of all the chapters
 def get_all_chapters(db: Session) -> List:
@@ -74,10 +80,13 @@ def get_all_verses(db: Session, chapter_number: int):
 
 # returns the particular verse from the chapter
 def get_verse_from_chapter(db: Session, chapter_num: int, verse_num: int) -> VerseModel:
+    print("### calling get_verse_from_chapter ###")
     verse = db.query(ManasVerse).filter(
         ManasVerse.chapter_number == chapter_num,
         ManasVerse.verse_number == verse_num
     ).first()
+    
+    print(verse)
 
     if verse:
         return verse
