@@ -12,8 +12,6 @@ RUN pip install --upgrade --no-cache-dir poetry
 
 RUN poetry install
 
-EXPOSE 80
+EXPOSE 8000
 
 COPY . .
-
-CMD ["/bin/bash", "docker-entrypoint.sh"]
