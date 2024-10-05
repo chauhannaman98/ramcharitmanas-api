@@ -21,7 +21,7 @@ rd = redis.Redis(
 
 try:
     rd.ping()  # Test connection
-    print("Connected to Redis!")
+    # print("Connected to Redis!")
 except redis.ConnectionError as e:
     print(f"Failed to connect to Redis: {e}")
 
@@ -55,22 +55,28 @@ def get_all_verses(db: Session, chapter_number: int):
     if cached_data:
         cached_data_str = cached_data.decode('utf-8')
         cached_data_list = ast.literal_eval(cached_data_str)
+        print(f"returning cached data: {cached_data_list[0]}")
         return cached_data_list
     else:
         verses = db.query(ManasVerse).filter(
             ManasVerse.chapter_number == chapter_number
         ).order_by(
             ManasVerse.verse_number.asc()
+        ).options(
+            joinedload(ManasVerse.translations)
         ).all()
 
+        print(f"data from db: {verses[0].__dict__}")
+
         if verses:
+            return verses
             parsed_list = []
             for verse in verses:
                 parsed_list.append(row2dict(verse))
 
-            rd.set(redis_key, str(parsed_list))
-            rd.expire(redis_key, os.getenv('REDIS_CHAPTER_CACHE_TIMEOUT'))
-            return parsed_list
+            # rd.set(redis_key, str(parsed_list))
+            # rd.expire(redis_key, os.getenv('REDIS_CHAPTER_CACHE_TIMEOUT'))
+            return verses
         
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
