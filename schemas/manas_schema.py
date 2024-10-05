@@ -30,7 +30,7 @@ class VerseModel(BaseModel):
     verse_type: str
     verse_text: str
     transliteration : str
-    # translations: List[VerseTranslationModel]
+    translations: List[VerseTranslationModel]
     class Config():
         from_attributes = True
 

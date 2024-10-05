@@ -38,4 +38,4 @@ class ManasVerse(Base):
     transliteration = Column(UnicodeText)
 
     # relationships
-    # translations = relationship(ManasTranslation, backref='manas_verses', lazy='joined')
+    translations = relationship(ManasTranslation, backref='manas_verses', lazy='joined')
