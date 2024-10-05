@@ -19,6 +19,10 @@ class VerseTranslationModel(BaseModel):
     translation: str
 
 
+class VerseTranslationOutputModel(BaseModel):
+    data: List[VerseTranslationModel]
+
+
 class VerseModel(BaseModel):
     id: int
     verse_number: int
@@ -29,3 +33,7 @@ class VerseModel(BaseModel):
     translations: List[VerseTranslationModel]
     class Config():
         from_attributes = True
+
+
+class VerseOutputModel(BaseModel):
+    data: List[VerseModel]

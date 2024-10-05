@@ -4,23 +4,11 @@ from sqlalchemy.sql.sqltypes import Integer, TIMESTAMP, String
 from sqlalchemy.orm import relationship
 
 
-class DBUser(Base):
-    __tablename__ = 'users'
-
-    id = id = Column(Integer, primary_key=True, index=True)
-    created_at = Column(TIMESTAMP, nullable=True)
-    username = Column(String, nullable=False)
-    email = Column(String(255), nullable=False)
-    first_name = Column(String(255))
-    last_name = Column(String(255))
-    password = Column(String, nullable=False)
-
-
 class ManasTranslation(Base):
     __tablename__ = 'manas_translations'
 
     id = Column(Integer, primary_key=True, autoincrement=True,)
-    verse_id = Column(Integer, ForeignKey('manas_verses.id'))
+    verse_id = Column(Integer, ForeignKey("manas_verses.id"))
     language = Column(String(255))
     translation = Column(UnicodeText)
 
