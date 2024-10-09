@@ -62,6 +62,6 @@ starlette==0.36.3
 tomlkit==0.12.4
 trove-classifiers==2024.2.23
 typing_extensions==4.10.0
-urllib3==2.2.1
+urllib3==2.2.2
 uvicorn==0.27.1
 virtualenv==20.25.1
