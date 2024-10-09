@@ -163,3 +163,4 @@ cython_debug/
 .vscode/
 queries/
 data/
+manas-api-key.pem
